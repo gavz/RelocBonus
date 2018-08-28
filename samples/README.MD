@@ -25,8 +25,19 @@ All of normal samples are "hello world" applications, with a few differences:
 
 These samples are variations of the normal samples that have been packed using RelocBonus. They **should** trigger detection.
 
-`reloc-nofixup.exe` is the simplest sample with no fixup. Created with `reloc.exe --section=.text --section=.data normal-nofixup.exe reloc-nofixup.exe`.
+`reloc-nofixup.exe` is the simplest sample with no fixup. Created with
+```
+reloc.exe --section=.text --section=.data normal-nofixup.exe reloc-nofixup.exe
+```
 
-`reloc-runtimefixup.exe` has fixup, but only inside of `EntryPoint`. Created with `reloc.exe --section=.text --section=.data normal-runtimefixup.exe reloc-runtimefixup.exe`.
 
-`reloc-deltafixup.exe` has fixup, done by the Windows Loader during the relocations stage. This will almost certainly evade any post-reloc checks, but **it requires memory write-protection to be off**. This will certainly never be the case, though there is a trick to decrease section align and map a RW section on the same page as the header (Corkami figured this out, not me), causing a writeable header. This sample does not use that trick. Even though this sample really shouldn't run, you can catch the access violation in a debugger, change the page protection, and execute again to see the attack actually work. Created with `reloc.exe --section=.text --section=.data normal-nofixup.exe reloc-deltafixup.exe --fixupBase`.
+`reloc-runtimefixup.exe` has fixup, but only inside of `EntryPoint`. Created with
+```
+reloc.exe --section=.text --section=.data normal-runtimefixup.exe reloc-runtimefixup.exe
+```
+
+
+`reloc-deltafixup.exe` has fixup, done by the Windows Loader during the relocations stage. This will almost certainly evade any post-reloc checks, but **it requires memory write-protection to be off**. This will certainly never be the case, though there is a trick to decrease section align and map a RW section on the same page as the header (Corkami figured this out, not me), causing a writeable header. This sample does not use that trick. Even though this sample really shouldn't run, you can catch the access violation in a debugger, change the page protection, and execute again to see the attack actually work. Created with 
+```
+reloc.exe --section=.text --section=.data normal-nofixup.exe reloc-deltafixup.exe --fixupBase`.
+```
