@@ -39,5 +39,5 @@ reloc.exe --section=.text --section=.data normal-runtimefixup.exe reloc-runtimef
 
 `reloc-deltafixup.exe` has fixup, done by the Windows Loader during the relocations stage. This will almost certainly evade any post-reloc checks, but **it requires memory write-protection to be off**. This will certainly never be the case, though there is a trick to decrease section align and map a RW section on the same page as the header (Corkami figured this out, not me), causing a writeable header. This sample does not use that trick. Even though this sample really shouldn't run, you can catch the access violation in a debugger, change the page protection, and execute again to see the attack actually work. Created with 
 ```
-reloc.exe --section=.text --section=.data normal-nofixup.exe reloc-deltafixup.exe --fixupBase`.
+reloc.exe --section=.text --section=.data normal-nofixup.exe reloc-deltafixup.exe --fixupBase
 ```
